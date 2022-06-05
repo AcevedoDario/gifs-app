@@ -9,7 +9,11 @@ export default function getGifs({keyword = 'fail'} = {}){
 
         const {data = []} = response
         if (Array.isArray(data)){
-            const gifs = data.map(image => image.images.downsized_medium.url)
+            const gifs = data.map(image => {
+                const { id, images, title } = image
+                const { url } = images.downsized_medium
+                return { title, id, url }
+            })
             return gifs
         }
     })
